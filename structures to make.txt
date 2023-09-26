@@ -1,0 +1,33 @@
+array, array lists, hash maps, stack, queue, trees, matrix
+
+Linked List: Implement a singly linked list and a doubly linked list. These are fundamental for understanding dynamic data structures.
+
+Heap: You can create a binary heap, which is often used as a priority queue. Understanding heaps is important for various algorithms, like heap sort and Dijkstra's algorithm.
+
+Graph: Implement a graph data structure with various representations like adjacency matrix or adjacency list. Graphs are used in a wide range of algorithms, including depth-first search (DFS) and breadth-first search (BFS).
+
+Trie: A trie is a tree-like data structure used for efficient string storage and retrieval operations. It's often used in text-based applications, like autocomplete and spell checkers.
+
+Hash Set and Hash Table: You mentioned hash maps, but you can also implement simpler versions like a hash set (unordered set) and a hash table (unordered map).
+
+Binary Search Tree (BST): Implement a binary search tree and its basic operations like insertion, deletion, and searching. Understanding balanced BSTs like AVL trees or Red-Black trees is also valuable.
+
+Priority Queue: Create a priority queue using a binary heap or other data structures like Fibonacci heaps.
+
+Disjoint-Set (Union-Find): This data structure is used in various algorithms, such as Kruskal's algorithm for finding minimum spanning trees and cycle detection.
+
+Hash Functions: Implement different hash functions and explore how they affect the performance of hash tables.
+
+Bloom Filter: A probabilistic data structure used to test whether an element is a member of a set. It's useful for tasks like spell checking and data deduplication.
+
+Segment Tree: Segment trees are useful for various range-query tasks, such as finding the minimum or maximum element in a given range.
+
+Suffix Array: Suffix arrays are used in string algorithms, including substring search and text compression.
+
+Skip List: Skip lists are a versatile data structure that can be used as an alternative to balanced trees in many applications.
+
+Quadtree and Octree: These are tree data structures used in computer graphics and spatial indexing.
+
+Radix Tree (Trie): It's a tree data structure used for storing a dynamic set of strings, like IP routing tables.
+
+B-Trees: These are self-balancing tree structures commonly used in databases and file systems.

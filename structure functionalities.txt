@@ -1,0 +1,5 @@
+1. Initialise
+2. Insert
+3. Index
+4. remove
+5. visualise
