@@ -15,7 +15,7 @@ ArrayList<T>::~ArrayList()
  * Constructor for an array of given size
  */
 template <typename T>
-ArrayList<T>::ArrayList(int size) : size(size)
+ArrayList<T>::ArrayList(int size) : size(size), capacity(round(size * scale_factor))
 {
     // Initialise an array with the size given of the given data type
     data = static_cast<T *>(calloc(size, sizeof(T)));
@@ -33,7 +33,7 @@ ArrayList<T>::ArrayList(int size) : size(size)
  * Constructor for an array of given size and an existing array of items
  */
 template <typename T>
-ArrayList<T>::ArrayList(T *items, int size) : size(size)
+ArrayList<T>::ArrayList(T *items, int size) : size(size), capacity(round(size * scale_factor))
 {
     // Allocate new memory to avoid potential dangling pointer issues
     data = static_cast<T *>(calloc(size, sizeof(T)));
@@ -88,6 +88,7 @@ T ArrayList<T>::index(int index)
     }
 }
 
+// TO TEST
 /**
  * Removes the item at the index of the array list
  */
@@ -97,10 +98,17 @@ bool ArrayList<T>::remove(int index)
     // Check if the index is valid (higher than 0 and less than the size of the array)
     if (index < size && index >= 0)
     {
-        return data[index];
+        // Move every item after the index one place ot the left (overwriting the value at the index)
+        move_content(index, true);
+        return true;
+    }
+    else
+    {
+        throw std::out_of_range("Index out of range");
     }
 }
 
+// TO TEST
 /**
  * Removes a given item from the array list
  * Removes the first occurance of the item
@@ -111,7 +119,26 @@ bool ArrayList<T>::remove(T item)
     // Check if the index is valid (higher than 0 and less than the size of the array)
     if (index < size && index >= 0)
     {
-        return data[index];
+        for (int i = 0; i < size; i++)
+        {
+            bool found;
+            if (data[i] == item)
+            {
+                found = true;
+                move_content(index, true);
+                return true;
+            }
+        }
+
+        if (!found)
+        {
+            cout << "The specified item was not found in the array list";
+            return false;
+        }
+    }
+    else
+    {
+        throw std::out_of_range("Index out of range");
     }
 }
 
@@ -132,7 +159,7 @@ T &ArrayList<T>::operator[](int index)
 
 /**
  * Index the array using []
- * Passes a copy (non mutable)
+ * Returns a copy (non mutable)
  */
 template <typename T>
 T ArrayList<T>::operator[](int index) const
@@ -145,17 +172,40 @@ T ArrayList<T>::operator[](int index) const
     throw std::out_of_range("Index out of range");
 }
 
+// TO TEST
 /**
- * Function for appending an item to the end of the array list
+ * Function for appending an item to a given index
  */
 template <typename T>
 bool ArrayList<T>::append(T item, int index)
 {
     if (index < size && index >= 0)
     {
+        // Move the existing item at the index and everything after it one position to the right
+        move_content(index, false);
         data[index] = item;
         return true;
     }
+
+    return false;
+};
+
+// TO TEST
+/**
+ * Function for appending an item to the end of the array list
+ */
+template <typename T>
+bool ArrayList<T>::append(T item)
+{
+    // Check if there is enough capacity to add a new item
+    if (size + 1 > capacity)
+    {
+        extend_capacity();
+    }
+
+    data[size] = item;
+    size++;
+
     return false;
 };
 
@@ -166,4 +216,73 @@ template <typename T>
 int ArrayList<T>::length()
 {
     return size;
+}
+
+/**
+ * Returns the current capacity of the array list
+ */
+template <typename T>
+int ArrayList<T>::capacity()
+{
+    return capacity;
+}
+
+/**
+ * Helper function used for moving elements of the array either left (after removing) or right (after adding)
+ * @param direction is either true or false (true for moving left, false for right)
+ * @param index the index of the item to start moving from
+ */
+template <typename T>
+bool ArrayList<T>::move_content(bool direction, int index)
+{
+    if (direction)
+    {
+        // Move all elements after the index to the left
+        for (int i = index; i < size - 1; i++)
+        {
+            data[i] = data[i + 1];
+        }
+
+        size--;
+    }
+    else
+    {
+        // Check if we have enough capacity for moving the elements
+        if (capacity < size + 1)
+        {
+            // Allocate more memory
+            // This function does error handling and if memory allocation fails, it will exit
+            extend_capacity();
+        }
+
+        // Move all elements after the index to the right
+        // Iterate backwards from the right (so that we don't need a temporary vairables to copy elements to)
+        for (int i = size; i > index; i--)
+        {
+            data[i] = data[i - 1];
+        }
+
+        size++;
+    }
+    return true;
+}
+
+/**
+ * Helper function for extending the capacity of the array list
+ */
+template <typename T>
+bool ArrayList<T>::extend_capacity()
+{
+    int new_capacity = round(size * scale_factor);
+    T *new_array = static_cast<T *> realloc(data, new_capacity * sizeof(T));
+
+    if (!new_array)
+    {
+        cout << "Error allocating memory for array" << endl;
+        free(data);
+        exit(1);
+    }
+
+    data = new_array;
+    return true;
 }
