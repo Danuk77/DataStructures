@@ -1,0 +1,5 @@
+version: "3"
+services:
+  structs:
+    build: .
+    container_name: datastructs      
