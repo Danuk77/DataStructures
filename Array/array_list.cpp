@@ -12,6 +12,24 @@ ArrayList<T>::~ArrayList()
 }
 
 /**
+ * Constructor for an array list without any specified size
+ */
+template <typename T>
+ArrayList<T>::ArrayList() : size(0), capacity(round(10 * scale_factor))
+{
+    // Initialise an array with the size given of the given data type
+    data = static_cast<T *>(calloc(10, sizeof(T)));
+
+    // If allocation did not complete as we wanted
+    if (!data)
+    {
+        cout << "Error allocating memory for array" << endl;
+        free(data);
+        exit(1);
+    }
+}
+
+/**
  * Constructor for an array of given size
  */
 template <typename T>

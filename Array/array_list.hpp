@@ -13,6 +13,7 @@ private:
 
 public:
     ~ArrayList();
+    ArrayList();
     ArrayList(int size);
     ArrayList(T *items, int size);
     bool append(T item, int index);

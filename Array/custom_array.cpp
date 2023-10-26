@@ -86,6 +86,7 @@ T CustomArray<T>::index(int index)
     {
         return data[index];
     }
+    throw std::out_of_range("Index out of range");
 }
 
 /**
