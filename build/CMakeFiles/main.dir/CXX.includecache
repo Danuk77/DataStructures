@@ -1,0 +1,60 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/x/Side projects/DataStructures/Array/array_list.cpp
+array_list.hpp
+/mnt/x/Side projects/DataStructures/Array/array_list.hpp
+math.h
+/mnt/x/Side projects/DataStructures/Array/math.h
+iostream
+-
+
+/mnt/x/Side projects/DataStructures/Array/array_list.hpp
+array_list.cpp
+/mnt/x/Side projects/DataStructures/Array/array_list.cpp
+
+/mnt/x/Side projects/DataStructures/Array/custom_array.hpp
+
+/mnt/x/Side projects/DataStructures/List/doubly_linked_list_struct.cpp
+
+/mnt/x/Side projects/DataStructures/List/singly_linked_list.cpp
+singly_linked_list.hpp
+/mnt/x/Side projects/DataStructures/List/singly_linked_list.hpp
+iostream
+-
+
+/mnt/x/Side projects/DataStructures/List/singly_linked_list.hpp
+singly_list_node.hpp
+/mnt/x/Side projects/DataStructures/List/singly_list_node.hpp
+singly_linked_list.cpp
+/mnt/x/Side projects/DataStructures/List/singly_linked_list.cpp
+
+/mnt/x/Side projects/DataStructures/List/singly_list_node.cpp
+singly_list_node.hpp
+/mnt/x/Side projects/DataStructures/List/singly_list_node.hpp
+iostream
+-
+
+/mnt/x/Side projects/DataStructures/List/singly_list_node.hpp
+singly_list_node.cpp
+/mnt/x/Side projects/DataStructures/List/singly_list_node.cpp
+
+/mnt/x/Side projects/DataStructures/test.cpp
+iostream
+-
+Array/custom_array.hpp
+/mnt/x/Side projects/DataStructures/Array/custom_array.hpp
+Array/array_list.hpp
+/mnt/x/Side projects/DataStructures/Array/array_list.hpp
+List/singly_linked_list.hpp
+/mnt/x/Side projects/DataStructures/List/singly_linked_list.hpp
+List/doubly_linked_list_struct.cpp
+/mnt/x/Side projects/DataStructures/List/doubly_linked_list_struct.cpp
+math.h
+/mnt/x/Side projects/DataStructures/math.h
+
