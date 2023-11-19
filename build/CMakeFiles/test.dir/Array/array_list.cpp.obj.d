@@ -1,9 +1,17 @@
-CMakeFiles/test.dir/test.cpp.obj: \
- X:\Side\ projects\DataStructures\test.cpp \
- c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\iostream \
+CMakeFiles/test.dir/Array/array_list.cpp.obj: \
+ X:\Side\ projects\DataStructures\Array\array_list.cpp \
+ X:\Side\ projects\DataStructures\Array\array_list.hpp \
+ c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\math.h \
+ c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\cmath \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\mingw32\bits\c++config.h \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\mingw32\bits\os_defines.h \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\mingw32\bits\cpu_defines.h \
+ c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\cpp_type_traits.h \
+ c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ext\type_traits.h \
+ c:\mingw\include\math.h c:\mingw\include\_mingw.h \
+ c:\mingw\include\msvcrtver.h c:\mingw\include\w32api.h \
+ c:\mingw\include\sdkddkver.h \
+ c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\iostream \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ostream \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\iosfwd \
@@ -11,9 +19,7 @@ CMakeFiles/test.dir/test.cpp.obj: \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\memoryfwd.h \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\postypes.h \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\cwchar \
- c:\mingw\include\wchar.h c:\mingw\include\_mingw.h \
- c:\mingw\include\msvcrtver.h c:\mingw\include\w32api.h \
- c:\mingw\include\sdkddkver.h c:\mingw\include\wctype.h \
+ c:\mingw\include\wchar.h c:\mingw\include\wctype.h \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\stddef.h \
  c:\mingw\include\sys\types.h c:\mingw\include\stdio.h \
  c:\mingw\include\sys/types.h \
@@ -33,8 +39,6 @@ CMakeFiles/test.dir/test.cpp.obj: \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\char_traits.h \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_algobase.h \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\functexcept.h \
- c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\cpp_type_traits.h \
- c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ext\type_traits.h \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ext\numeric_traits.h \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_pair.h \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator_base_types.h \
@@ -99,13 +103,4 @@ CMakeFiles/test.dir/test.cpp.obj: \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_ios.tcc \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\ostream.tcc \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream \
- c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\istream.tcc \
- X:\Side\ projects\DataStructures\Array/custom_array.hpp \
- X:\Side\ projects\DataStructures\Array/array_list.hpp \
- X:\Side\ projects\DataStructures\Array/array_list.cpp \
- c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\math.h \
- c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\cmath c:\mingw\include\math.h \
- X:\Side\ projects\DataStructures\List/singly_linked_list.hpp \
- X:\Side\ projects\DataStructures\List/singly_list_node.hpp \
- X:\Side\ projects\DataStructures\List/singly_list_node.cpp \
- X:\Side\ projects\DataStructures\List/singly_linked_list.cpp
+ c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\istream.tcc

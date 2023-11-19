@@ -1,5 +1,6 @@
-CMakeFiles/test.dir/test.cpp.obj: \
- X:\Side\ projects\DataStructures\test.cpp \
+CMakeFiles/test.dir/Array/custom_array.cpp.obj: \
+ X:\Side\ projects\DataStructures\Array\custom_array.cpp \
+ X:\Side\ projects\DataStructures\Array\custom_array.hpp \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\iostream \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\mingw32\bits\c++config.h \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\mingw32\bits\os_defines.h \
@@ -99,13 +100,4 @@ CMakeFiles/test.dir/test.cpp.obj: \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_ios.tcc \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\ostream.tcc \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream \
- c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\istream.tcc \
- X:\Side\ projects\DataStructures\Array/custom_array.hpp \
- X:\Side\ projects\DataStructures\Array/array_list.hpp \
- X:\Side\ projects\DataStructures\Array/array_list.cpp \
- c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\math.h \
- c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\cmath c:\mingw\include\math.h \
- X:\Side\ projects\DataStructures\List/singly_linked_list.hpp \
- X:\Side\ projects\DataStructures\List/singly_list_node.hpp \
- X:\Side\ projects\DataStructures\List/singly_list_node.cpp \
- X:\Side\ projects\DataStructures\List/singly_linked_list.cpp
+ c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\istream.tcc
