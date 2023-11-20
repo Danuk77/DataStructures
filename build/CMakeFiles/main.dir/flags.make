@@ -6,5 +6,5 @@ CXX_FLAGS =   -std=gnu++1z
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I"/mnt/x/Side projects/DataStructures/Array" -I"/mnt/x/Side projects/DataStructures/List" -I"/mnt/x/Side projects/DataStructures/Map" 
+CXX_INCLUDES = -I"/mnt/x/Side projects/DataStructures/Array" -I"/mnt/x/Side projects/DataStructures/List" -I"/mnt/x/Side projects/DataStructures/Map" -I"/mnt/x/Side projects/DataStructures/Tree" 
 

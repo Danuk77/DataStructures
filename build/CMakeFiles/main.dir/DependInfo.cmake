@@ -13,6 +13,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../Array"
   "../List"
   "../Map"
+  "../Tree"
   )
 
 # Targets to which this target links.

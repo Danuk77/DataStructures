@@ -44,6 +44,20 @@ iostream
 singly_list_node.cpp
 /mnt/x/Side projects/DataStructures/List/singly_list_node.cpp
 
+/mnt/x/Side projects/DataStructures/Tree/binary_tree.cpp
+binary_tree.hpp
+/mnt/x/Side projects/DataStructures/Tree/binary_tree.hpp
+
+/mnt/x/Side projects/DataStructures/Tree/binary_tree.hpp
+binary_tree_node.cpp
+/mnt/x/Side projects/DataStructures/Tree/binary_tree_node.cpp
+binary_tree.cpp
+/mnt/x/Side projects/DataStructures/Tree/binary_tree.cpp
+
+/mnt/x/Side projects/DataStructures/Tree/binary_tree_node.cpp
+binary_tree.hpp
+/mnt/x/Side projects/DataStructures/Tree/binary_tree.hpp
+
 /mnt/x/Side projects/DataStructures/test.cpp
 iostream
 -
@@ -55,6 +69,8 @@ List/singly_linked_list.hpp
 /mnt/x/Side projects/DataStructures/List/singly_linked_list.hpp
 List/doubly_linked_list_struct.cpp
 /mnt/x/Side projects/DataStructures/List/doubly_linked_list_struct.cpp
+Tree/binary_tree.hpp
+/mnt/x/Side projects/DataStructures/Tree/binary_tree.hpp
 math.h
 /mnt/x/Side projects/DataStructures/math.h
 
