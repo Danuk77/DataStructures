@@ -1,5 +1,6 @@
 using namespace std;
 #include "array_list.hpp"
+#include "math.h"
 #include <iostream>
 
 /**
@@ -15,10 +16,13 @@ ArrayList<T>::~ArrayList()
  * Constructor for an array list without any specified size
  */
 template <typename T>
-ArrayList<T>::ArrayList() : size(0), capacity(round(10 * scale_factor))
+ArrayList<T>::ArrayList() : size(0)
 {
+
+    capacity = 10 * scale_factor;
+
     // Initialise an array with the size given of the given data type
-    data = static_cast<T *>(calloc(10, sizeof(T)));
+    data = static_cast<T *>(calloc(capacity, sizeof(T)));
 
     // If allocation did not complete as we wanted
     if (!data)
@@ -33,10 +37,13 @@ ArrayList<T>::ArrayList() : size(0), capacity(round(10 * scale_factor))
  * Constructor for an array of given size
  */
 template <typename T>
-ArrayList<T>::ArrayList(int size) : size(size), capacity(round(size * scale_factor))
+ArrayList<T>::ArrayList(int size) : size(size)
 {
+
+    capacity = size * scale_factor;
+
     // Initialise an array with the size given of the given data type
-    data = static_cast<T *>(calloc(size, sizeof(T)));
+    data = static_cast<T *>(calloc(capacity, sizeof(T)));
 
     // If allocation did not complete as we wanted
     if (!data)
@@ -51,10 +58,12 @@ ArrayList<T>::ArrayList(int size) : size(size), capacity(round(size * scale_fact
  * Constructor for an array of given size and an existing array of items
  */
 template <typename T>
-ArrayList<T>::ArrayList(T *items, int size) : size(size), capacity(round(size * scale_factor))
+ArrayList<T>::ArrayList(T *items, int size) : size(size)
 {
+    capacity = scale_factor * size;
+
     // Allocate new memory to avoid potential dangling pointer issues
-    data = static_cast<T *>(calloc(size, sizeof(T)));
+    data = static_cast<T *>(calloc(capacity, sizeof(T)));
 
     // If allocation did not complete as we wanted
     if (!data)
@@ -106,18 +115,17 @@ T ArrayList<T>::index(int index)
     }
 }
 
-// TO TEST
 /**
  * Removes the item at the index of the array list
  */
 template <typename T>
-bool ArrayList<T>::remove(int index)
+bool ArrayList<T>::remove_at(int index)
 {
     // Check if the index is valid (higher than 0 and less than the size of the array)
     if (index < size && index >= 0)
     {
-        // Move every item after the index one place ot the left (overwriting the value at the index)
-        move_content(index, true);
+        // Move every item after the index one place to the left (overwriting the value at the index)
+        move_content(true, index);
         return true;
     }
     else
@@ -126,37 +134,31 @@ bool ArrayList<T>::remove(int index)
     }
 }
 
-// TO TEST
 /**
  * Removes a given item from the array list
  * Removes the first occurance of the item
+ * @param item Value to remove from the list (Note this parameter is a value not a reference)
  */
 template <typename T>
 bool ArrayList<T>::remove(T item)
 {
-    // Check if the index is valid (higher than 0 and less than the size of the array)
-    if (index < size && index >= 0)
-    {
-        for (int i = 0; i < size; i++)
-        {
-            bool found;
-            if (data[i] == item)
-            {
-                found = true;
-                move_content(index, true);
-                return true;
-            }
-        }
 
-        if (!found)
+    bool found = false;
+    for (int i = 0; i < size; i++)
+    {
+        if (data[i] == item)
         {
-            cout << "The specified item was not found in the array list";
-            return false;
+            found = true;
+            move_content(true, i);
+            size--;
+            return true;
         }
     }
-    else
+
+    if (!found)
     {
-        throw std::out_of_range("Index out of range");
+        cout << "The specified item was not found in the array list";
+        return false;
     }
 }
 
@@ -190,7 +192,6 @@ T ArrayList<T>::operator[](int index) const
     throw std::out_of_range("Index out of range");
 }
 
-// TO TEST
 /**
  * Function for appending an item to a given index
  */
@@ -200,7 +201,7 @@ bool ArrayList<T>::append(T item, int index)
     if (index < size && index >= 0)
     {
         // Move the existing item at the index and everything after it one position to the right
-        move_content(index, false);
+        move_content(false, index);
         data[index] = item;
         return true;
     }
@@ -208,7 +209,6 @@ bool ArrayList<T>::append(T item, int index)
     return false;
 };
 
-// TO TEST
 /**
  * Function for appending an item to the end of the array list
  */
@@ -240,7 +240,7 @@ int ArrayList<T>::length()
  * Returns the current capacity of the array list
  */
 template <typename T>
-int ArrayList<T>::capacity()
+int ArrayList<T>::get_capacity()
 {
     return capacity;
 }
@@ -291,8 +291,8 @@ bool ArrayList<T>::move_content(bool direction, int index)
 template <typename T>
 bool ArrayList<T>::extend_capacity()
 {
-    int new_capacity = round(size * scale_factor);
-    T *new_array = static_cast<T *> realloc(data, new_capacity * sizeof(T));
+    int new_capacity = size * scale_factor;
+    T *new_array = static_cast<T *>(realloc(data, new_capacity * sizeof(T)));
 
     if (!new_array)
     {
@@ -302,5 +302,6 @@ bool ArrayList<T>::extend_capacity()
     }
 
     data = new_array;
+    capacity = new_capacity;
     return true;
 }

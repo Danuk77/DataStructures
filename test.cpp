@@ -1,23 +1,22 @@
 #include <iostream>
-#include ".\Array\custom_array.cpp"
-#include ".\Array\array_list.hpp"
+#include "Array/custom_array.hpp"
+#include "Array/array_list.hpp"
+#include "List/singly_linked_list.hpp"
+#include "List/doubly_linked_list_struct.cpp"
+#include "Tree/binary_tree.hpp"
+#include "math.h"
 using namespace std;
-
-void print(int val)
-{
-    cout << val << endl;
-}
 
 int main(int argc, char *argv[])
 {
-    // Instantiate a custom array
-    // CustomArray<int> array(5);
-    // array.visualise();
-    // print(array[4]);
-    // array[4] = 10;
-    // array.visualise();
+    binary_tree<int> tree;
+    tree.insert(1);
+    tree.insert(2);
+    tree.insert(8);
+    tree.insert(3);
 
-    ArrayList<int> list(10);
-    list.visualise();
+    tree.traverse(1);
+
+    tree.remove(55);
     return 0;
 }
