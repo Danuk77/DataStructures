@@ -38,7 +38,6 @@ bool binary_tree<T>::insert(T item)
 
 /**
  * Remove an item from the binary tree
- * This is a wrapper function that does the initial checks and calls the function 'remove_from_tree' which handles the removal
  * @param item The item to be removed
  */
 template <typename T>
@@ -60,15 +59,14 @@ bool binary_tree<T>::remove(T item)
         throw std::out_of_range("The item is not present in the tree");
     }
 
-    // Check which case the node to delete falls under
     // Case 1 (Leaf node)
     if (is_leaf(node))
     {
         delete node;
-        node == nullptr;
+        node = nullptr;
     }
     // Case 2 (Inner node with a single child)
-    else if (remove_single_child_node(node) != nullptr)
+    else if (remove_single_child_node(node))
     {
         // This looks ugly because its an empty body. Maybe rethink design when you are properly awake
     }
@@ -76,55 +74,43 @@ bool binary_tree<T>::remove(T item)
     // Find the in order successor from the right child
     else
     {
-        tree_node<T> *in_succ;
-        tree_node<T> *in_succ_parent;
+        tree_node<T> *right_subtree = node->right;
+
+        // If the right child has no left child, simply move the leaf up the tree
+        if (right_subtree->left == nullptr)
+        {
+            right_subtree->left = node->left;
         }
-    // TODO: Check if the node we deleted was the root of the tree
-    return true;
-}
+        else
+        {
+            remove_node_in_order(right_subtree);
+            right_subtree->left = node->left;
+            right_subtree->right = node->right;
+        }
 
-// Removes a node from the tree
-// Three cases
-// 1. Leaf node => Simply remove the node
-// 2. Inner node with one leaf => Move the leaf upwards in the tree and delete the current node
-// 3. Inner nodes => Replace with another node (from the left side -> maximum value, from the right side -> minimum value) and delete that node
-//                      Same as finding the in order successor and replacing the node with it
-template <typename T>
-bool binary_tree<T>::remove_from_tree(tree_node<T> *&node)
-{
-    // First base case
-    // If the node to remove is a leaf, simply remove it from the tree
-    if (is_leaf(node))
-    {
+        node->left = nullptr;
+        node->right = nullptr;
         delete node;
-        return true;
+        node = right_subtree;
     }
 
-    // Second base case
-    // If the node to remove is an inner node with atleast one leaf child (immediately)
-    int has_leaf_child = is_inner_node_with_leaf_child(node);
-
-    if (has_leaf_child != -1)
+    // Check if the node we deleted was the previous root of the tree
+    if (parent == nullptr)
     {
-        remove_inner_node_with_leaf_child(node, has_leaf_child);
-        return true;
+        root = node;
+    }
+    else
+    {
+        // Connect the nodes togeather as the tree is disconnected after deleting
+        br == LEFT ? parent->left = node : parent->right = node;
     }
 
-    // General case
-    // If the node is an inner node with no leaf children
-    // Traverse the subtree using post order traversal and find the first leaf node it visits and make that node the new root of the subtree
-    post_order_node_remove(node);
     return true;
 }
-
-// bool identify_node(tree_node<T> *&parent, tree_node<T> *&node);
-// bool find_in_order_successor(tree_node<T> *&parent, tree_node<T> *&node);
-// bool is_leaf_parent(tree_node<T> *&node);
 
 /**
  * Checks whether a given value is present within the tree
- * If the node is present sets reference parameter param to point to the parent of the node containing the value and node to point to the node containg
- * value
+ * If the node is present sets reference parameter parent to point to the parent of the node containing the value and node to point to the node itself
  * @param item The item to search for
  * @param parent Reference pointer which is set to the parent of the node containing the value being searched for
  * @param node Reference pointer which is set to the node containing the value being searched for (initially points to the root of the tree)
@@ -132,7 +118,7 @@ bool binary_tree<T>::remove_from_tree(tree_node<T> *&node)
  * @returns True if node is found, False otherwise
  */
 template <typename T>
-bool binary_tree<T>::identify_node(T item, tree_node<T> *&parent, tree_node<T> *&node, branch br)
+bool binary_tree<T>::identify_node(T item, tree_node<T> *&parent, tree_node<T> *&node, branch &br)
 {
     while (node != nullptr)
     {
@@ -153,7 +139,7 @@ bool binary_tree<T>::identify_node(T item, tree_node<T> *&parent, tree_node<T> *
         else
         {
             node = node->left;
-            br = branch::RIGHT;
+            br = branch::LEFT;
         }
     }
 
@@ -162,7 +148,7 @@ bool binary_tree<T>::identify_node(T item, tree_node<T> *&parent, tree_node<T> *
 }
 
 /**
- * Checks if the given node has a single child. If so removes the node and moves it's child up the tree.
+ * Checks if the given node has only a single child node. If so removes the node and moves it's child up the tree.
  * @param node The node to remove
  * @returns True if the node only has a single child, False otherwise
  */
@@ -172,13 +158,13 @@ bool binary_tree<T>::remove_single_child_node(tree_node<T> *&node)
     tree_node<T> *temp_ptr;
     if (node->left == nullptr && node->right != nullptr)
     {
-        node->right = nullptr;
         temp_ptr = node->right;
+        node->right = nullptr;
     }
     else if (node->right == nullptr && node->left != nullptr)
     {
-        node->left = nullptr;
         temp_ptr = node->left;
+        node->left = nullptr;
     }
     else
     {
@@ -209,102 +195,23 @@ bool binary_tree<T>::is_leaf(tree_node<T> *&node)
 }
 
 /**
- * Checks if the given node is an inner node with at least one child who is a leaf
- * @param node The node to check the above condition
- * @return 0, 1 or -1. 0 if left node is a leaf, 1 if right node is a leaf and -1 if the node is has no leaf childs.
+ * Given a subtree, finds the inorder successor (The first node visited during in order traversal)
+ * @param node Reference to the node to remove. Once removed will point to the new subtree root
  */
 template <typename T>
-int binary_tree<T>::is_inner_node_with_leaf_child(tree_node<T> *&node)
+void binary_tree<T>::remove_node_in_order(tree_node<T> *&right_subtree)
 {
-    if (node->left != nullptr && is_child(node->left))
+    tree_node<T> *right_parent = nullptr;
+    // Traverse the subtree until we find the lowest value
+    while (right_subtree->left != nullptr)
     {
-        return 0;
-    }
-    else if (node->right != nullptr && is_child(node->right))
-    {
-        return 1;
-    }
-    else
-    {
-        return -1;
-    }
-}
-
-/**
- * Remove a node from the tree which falls under the following condition
- * If the node has atleast one child who is a leaf
- * @param node The node to remove
- * @param condition An integer indicating a child who is a leaf (0 for left, 1 for right)
- */
-template <typename T>
-void binary_tree<T>::remove_inner_node_with_leaf_child(tree_node<T> *&node, int condition)
-{
-    tree_node<T> *new_sub_tree_root;
-    if (condition == 0)
-    {
-        new_sub_tree_root = node->left;
-        new_sub_tree_root->right = node->right;
-    }
-    else
-    {
-        new_sub_tree_root = node->right;
-        new_sub_tree_root->left = node->left;
+        right_parent = right_subtree;
+        right_subtree = right_subtree->left;
     }
 
-    node->left = nullptr;
-    node->right = nullptr;
-    delete node;
-    node = new_sub_tree_root;
-}
-
-/**
- * Given a sub tree, find the first node visited during post order traversal and set that node as the root
- * @param node The subtree root
- */
-template <typename T>
-void binary_tree<T>::post_order_node_remove(tree_node<T> *&node)
-{
-    tree_node<T> *traverse_node = node;
-    tree_node<T> *traverse_node_parent = nullptr;
-
-    // Find the first leaf node visited in post order traversal
-    while (!is_leaf(traverse_node))
-    {
-        traverse_node_parent = traverse_node;
-
-        if (traverse_node->left != nullptr)
-        {
-            traverse_node = traverse_node->left;
-        }
-        else
-        {
-            traverse_node = traverse_node->right;
-        }
-    }
-
-    // Make the first leaf node the new root of the subtree
-    traverse_node->right = node->right;
-    traverse_node->left = node->left;
-
-    // Delink the first leaf node from its parent
-    if (traverse_node_parent->left == nullptr)
-    {
-        traverse_node_parent->right = nullptr;
-    }
-    else
-    {
-        traverse_node_parent->left = nullptr;
-    }
-
-    // Delink the existing tree root
-    node->left = nullptr;
-    node->right = nullptr;
-
-    // Free the existing tree root
-    delete node;
-
-    // Make the pointer 'node' point to our new subtree root
-    node = traverse_node;
+    // Make the parent of the lowest value's left pointer point to the right of the lowest value
+    right_parent->left = right_subtree->right;
+    right_subtree->right = nullptr;
 }
 
 /**

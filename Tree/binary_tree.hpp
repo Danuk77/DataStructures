@@ -11,8 +11,8 @@ template <typename T>
 struct tree_node
 {
     T data;
-    tree_node<T> *left;
-    tree_node<T> *right;
+    tree_node<T> *left = nullptr;
+    tree_node<T> *right = nullptr;
 
     ~tree_node();
     tree_node(T item);
@@ -47,17 +47,11 @@ struct binary_tree
     bool find(T item);
     void traverse(int method);
 
-    // Potentially remove these functions
+    // Helper functions for removing a node from the tree
     bool is_leaf(tree_node<T> *&node);
-    int is_inner_node_with_leaf_child(tree_node<T> *&node);
-    void remove_inner_node_with_leaf_child(tree_node<T> *&node, int condition);
-    void post_order_node_remove(tree_node<T> *&node);
-    bool remove_from_tree(tree_node<T> *&node);
-
-    bool identify_node(T item, tree_node<T> *&parent, tree_node<T> *&node, branch br);
+    bool identify_node(T item, tree_node<T> *&parent, tree_node<T> *&node, branch &br);
     bool remove_single_child_node(tree_node<T> *&node);
-    // bool find_in_order_successor(tree_node<T> *&parent, tree_node<T> *&node);
-    // bool is_leaf_parent(tree_node<T> *&node);
+    void remove_node_in_order(tree_node<T> *&right_subtree);
 };
 
 // Include the actual implementations of the above structs

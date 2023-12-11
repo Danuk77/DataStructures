@@ -169,12 +169,12 @@ void tree_node<T>::traverse_pre_order()
 
     if (left != nullptr)
     {
-        left->traverse_in_order();
+        left->traverse_pre_order();
     }
 
     if (right != nullptr)
     {
-        right->traverse_in_order();
+        right->traverse_pre_order();
     }
 }
 
@@ -187,12 +187,12 @@ void tree_node<T>::traverse_post_order()
 {
     if (left != nullptr)
     {
-        left->traverse_in_order();
+        left->traverse_post_order();
     }
 
     if (right != nullptr)
     {
-        right->traverse_in_order();
+        right->traverse_post_order();
     }
 
     cout << data << "--";
