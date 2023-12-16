@@ -4,12 +4,13 @@
 #include "List/singly_linked_list.hpp"
 #include "List/doubly_linked_list_struct.cpp"
 #include "Tree/binary_tree.hpp"
+#include "Tree/avl_tree.hpp"
 #include "math.h"
 using namespace std;
 
 int main(int argc, char *argv[])
 {
-    binary_tree<int> tree;
+    avl_tree<int> tree;
     tree.insert(8);
     tree.insert(3);
     tree.insert(10);
@@ -19,6 +20,7 @@ int main(int argc, char *argv[])
     tree.insert(4);
     tree.insert(7);
     tree.insert(13);
+    tree.traverse(1);
 
     // Testing tree traversals
     // cout << "In order traversal" << endl;
@@ -30,9 +32,9 @@ int main(int argc, char *argv[])
     // cout << "Post order traversal" << endl;
     // tree.traverse(3);
 
-    tree.remove(8);
+    // tree.remove(8);
 
-    tree.traverse(1);
+    // tree.traverse(1);
 
     return 0;
 }

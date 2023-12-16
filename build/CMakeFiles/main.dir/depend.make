@@ -9,6 +9,9 @@ CMakeFiles/main.dir/test.cpp.o: ../List/singly_linked_list.cpp
 CMakeFiles/main.dir/test.cpp.o: ../List/singly_linked_list.hpp
 CMakeFiles/main.dir/test.cpp.o: ../List/singly_list_node.cpp
 CMakeFiles/main.dir/test.cpp.o: ../List/singly_list_node.hpp
+CMakeFiles/main.dir/test.cpp.o: ../Tree/avl_tree.cpp
+CMakeFiles/main.dir/test.cpp.o: ../Tree/avl_tree.hpp
+CMakeFiles/main.dir/test.cpp.o: ../Tree/avl_tree_node.cpp
 CMakeFiles/main.dir/test.cpp.o: ../Tree/binary_tree.cpp
 CMakeFiles/main.dir/test.cpp.o: ../Tree/binary_tree.hpp
 CMakeFiles/main.dir/test.cpp.o: ../Tree/binary_tree_node.cpp
