@@ -34,7 +34,7 @@ void avl_tree<T>::insert(T item)
     {
         root->insert(item);
         // Balance the tree
-        root->balance(root, balancing_threshold = 1);
+        // root->balance(root, balancing_threshold);
     }
 }
 

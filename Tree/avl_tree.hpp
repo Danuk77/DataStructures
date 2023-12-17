@@ -25,7 +25,7 @@ struct avl_tree_node
     void right_left_rotate(avl_tree_node *&ref);
 
     // Other helper functions
-    int calculate_height(avl_tree_node *&ref);
+    int calculate_height(avl_tree_node *ref);
 
     // Traversal functions
     void traverse_in_order();

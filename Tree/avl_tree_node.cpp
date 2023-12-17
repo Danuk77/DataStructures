@@ -115,6 +115,8 @@ void avl_tree_node<T>::balance(avl_tree_node *&ref, int balance_treshold)
 
     int subtree_balance = left_height - right_height;
 
+    // cout << subtree_balance << endl;
+
     // Check if the subtree is out of balance
     if (subtree_balance > balance_treshold)
     {
@@ -142,12 +144,12 @@ void avl_tree_node<T>::balance(avl_tree_node *&ref, int balance_treshold)
     }
 
     // Recursively balance down the tree
-    if (left)
+    if (ref->left)
     {
         ref->left->balance(ref->left, balance_treshold);
     }
 
-    if (right)
+    if (ref->right)
     {
         ref->right->balance(ref->right, balance_treshold);
     }
@@ -160,9 +162,10 @@ void avl_tree_node<T>::balance(avl_tree_node *&ref, int balance_treshold)
 template <typename T>
 void avl_tree_node<T>::left_rotate(avl_tree_node *&ref)
 {
-    right->left = this;
-    ref = right;
-    right = nullptr;
+    ref->left = ref->right->left;
+    ref->right->left = ref;
+    ref = ref->right;
+    ref->left->right = nullptr;
 
     height = calculate_height(ref->left);
     ref->height = calculate_height(ref);
@@ -175,9 +178,10 @@ void avl_tree_node<T>::left_rotate(avl_tree_node *&ref)
 template <typename T>
 void avl_tree_node<T>::right_rotate(avl_tree_node *&ref)
 {
-    left->right = this;
-    ref = left;
-    left = nullptr;
+    ref->right = ref->left->right;
+    ref->left->right = ref;
+    ref = ref->left;
+    ref->right->left = nullptr;
 
     height = calculate_height(ref->right);
     ref->height = calculate_height(ref);
@@ -190,8 +194,8 @@ void avl_tree_node<T>::right_rotate(avl_tree_node *&ref)
 template <typename T>
 void avl_tree_node<T>::left_right_rotate(avl_tree_node *&ref)
 {
-    left->left_rotate(left);
-    ref->right_rotate(ref);
+    left_rotate(ref->left);
+    right_rotate(ref);
 }
 
 /**
@@ -201,8 +205,8 @@ void avl_tree_node<T>::left_right_rotate(avl_tree_node *&ref)
 template <typename T>
 void avl_tree_node<T>::right_left_rotate(avl_tree_node *&ref)
 {
-    right->right_rotate(right);
-    ref->left_rotate(ref);
+    right_rotate(ref->right);
+    left_rotate(ref);
 }
 
 /**
@@ -211,7 +215,7 @@ void avl_tree_node<T>::right_left_rotate(avl_tree_node *&ref)
  * @returns The height of the node
  */
 template <typename T>
-int avl_tree_node<T>::calculate_height(avl_tree_node *&ref)
+int avl_tree_node<T>::calculate_height(avl_tree_node *ref)
 {
     // If the node has both children
     if (ref->left != nullptr && ref->right != nullptr)
@@ -247,7 +251,7 @@ void avl_tree_node<T>::traverse_in_order()
         left->traverse_in_order();
     }
 
-    cout << " node " << data << " Height " << height << "--";
+    cout << " node " << data << " Height " << height << endl;
 
     if (right != nullptr)
     {
