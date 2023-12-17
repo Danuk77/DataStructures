@@ -14,15 +14,14 @@ struct avl_tree_node
     avl_tree_node(T item);
     avl_tree_node(T item, avl_tree_node<T> *left_ptr, avl_tree_node<T> *right_ptr);
 
-    int insert(T item);
-    int create_new_child(T item, avl_tree_node<T> *&child);
-    void balance(avl_tree_node *&ref, int balance_threshold);
+    avl_tree_node *insert(T item, avl_tree_node *ref, int balance_threshold);
+    avl_tree_node *balance(int balance_threshold);
 
     // Rotations involved in balancing
-    void left_rotate(avl_tree_node *&ref);
-    void right_rotate(avl_tree_node *&ref);
-    void left_right_rotate(avl_tree_node *&ref);
-    void right_left_rotate(avl_tree_node *&ref);
+    avl_tree_node<T> *left_rotate();
+    avl_tree_node<T> *right_rotate();
+    avl_tree_node<T> *left_right_rotate();
+    avl_tree_node<T> *right_left_rotate();
 
     // Other helper functions
     int calculate_height(avl_tree_node *ref);

@@ -55,51 +55,35 @@ avl_tree_node<T>::avl_tree_node(T item, avl_tree_node<T> *left_ptr, avl_tree_nod
  * @returns An integer which represents the height of the subtree
  */
 template <typename T>
-int avl_tree_node<T>::insert(T item)
+avl_tree_node<T> *avl_tree_node<T>::insert(T item, avl_tree_node<T> *ref, int balance_threshold)
 {
-    int subtree_height;
     if (data >= item)
     {
         if (left == nullptr)
         {
-            subtree_height = create_new_child(item, left);
+            left = new avl_tree_node(item, nullptr, nullptr);
         }
         else
         {
-            subtree_height = left->insert(item);
+            left = left->insert(item, left, balance_threshold);
         }
     }
     else
     {
         if (right == nullptr)
         {
-            subtree_height = create_new_child(item, right);
+            right = new avl_tree_node(item, nullptr, nullptr);
         }
         else
         {
-            subtree_height = right->insert(item);
+            right = right->insert(item, right, balance_threshold);
         }
     }
 
-    // Adjust the height if needed
-    if (height < subtree_height + 1)
-    {
-        height = subtree_height + 1;
-    }
+    height = calculate_height(this);
 
-    return height;
-}
-
-/**
- * Create a new child node at the given address
- * @param item The value the new node should carry
- * @param child The address of the child node
- */
-template <typename T>
-int avl_tree_node<T>::create_new_child(T item, avl_tree_node<T> *&child)
-{
-    child = new avl_tree_node(item, nullptr, nullptr);
-    return 0;
+    // Balance the tree
+    return balance(balance_threshold);
 }
 
 /**
@@ -107,7 +91,7 @@ int avl_tree_node<T>::create_new_child(T item, avl_tree_node<T> *&child)
  * @param ref The subtree root to balance
  */
 template <typename T>
-void avl_tree_node<T>::balance(avl_tree_node *&ref, int balance_treshold)
+avl_tree_node<T> *avl_tree_node<T>::balance(int balance_treshold)
 {
     // Calculate the balance of the subtree rooted at ref
     int left_height = left == nullptr ? -1 : left->height;
@@ -115,19 +99,17 @@ void avl_tree_node<T>::balance(avl_tree_node *&ref, int balance_treshold)
 
     int subtree_balance = left_height - right_height;
 
-    // cout << subtree_balance << endl;
-
     // Check if the subtree is out of balance
     if (subtree_balance > balance_treshold)
     {
         // Identify whether we must do a right rotation or a left-right rotation
         if (left->right == nullptr)
         {
-            right_rotate(ref);
+            return right_rotate();
         }
         else
         {
-            left_right_rotate(ref);
+            return left_right_rotate();
         }
     }
     else if (subtree_balance < -balance_treshold)
@@ -135,56 +117,49 @@ void avl_tree_node<T>::balance(avl_tree_node *&ref, int balance_treshold)
         // Identify whether we must do a left rotation or a right-left rotation
         if (right->left == nullptr)
         {
-            left_rotate(ref);
+            return left_rotate();
         }
         else
         {
-            right_left_rotate(ref);
+            return right_left_rotate();
         }
     }
 
-    // Recursively balance down the tree
-    if (ref->left)
-    {
-        ref->left->balance(ref->left, balance_treshold);
-    }
-
-    if (ref->right)
-    {
-        ref->right->balance(ref->right, balance_treshold);
-    }
+    return this;
 }
 
 /**
  * Rotate the subtree in the left direction
- * @param ref The root of the subtree
  */
 template <typename T>
-void avl_tree_node<T>::left_rotate(avl_tree_node *&ref)
+avl_tree_node<T> *avl_tree_node<T>::left_rotate()
 {
-    ref->left = ref->right->left;
-    ref->right->left = ref;
-    ref = ref->right;
-    ref->left->right = nullptr;
+    avl_tree_node<T> *temp = right;
+    right = right->left;
+    temp->left = this;
 
-    height = calculate_height(ref->left);
-    ref->height = calculate_height(ref);
+    // Adjust the heights
+    height = calculate_height(this);
+    temp->height = calculate_height(temp);
+
+    return temp;
 }
 
 /**
  * Rotate the subtree in the right direction
- * @param ref The root of the subtree
  */
 template <typename T>
-void avl_tree_node<T>::right_rotate(avl_tree_node *&ref)
+avl_tree_node<T> *avl_tree_node<T>::right_rotate()
 {
-    ref->right = ref->left->right;
-    ref->left->right = ref;
-    ref = ref->left;
-    ref->right->left = nullptr;
+    avl_tree_node<T> *temp = left;
+    left = left->right;
+    temp->right = this;
 
-    height = calculate_height(ref->right);
-    ref->height = calculate_height(ref);
+    // Adjust the heights
+    height = calculate_height(this);
+    temp->height = calculate_height(temp);
+
+    return temp;
 }
 
 /**
@@ -192,10 +167,10 @@ void avl_tree_node<T>::right_rotate(avl_tree_node *&ref)
  * @param ref The root of the subtree
  */
 template <typename T>
-void avl_tree_node<T>::left_right_rotate(avl_tree_node *&ref)
+avl_tree_node<T> *avl_tree_node<T>::left_right_rotate()
 {
-    left_rotate(ref->left);
-    right_rotate(ref);
+    left = left->left_rotate();
+    return right_rotate();
 }
 
 /**
@@ -203,10 +178,10 @@ void avl_tree_node<T>::left_right_rotate(avl_tree_node *&ref)
  * @param ref The root of the subtree
  */
 template <typename T>
-void avl_tree_node<T>::right_left_rotate(avl_tree_node *&ref)
+avl_tree_node<T> *avl_tree_node<T>::right_left_rotate()
 {
-    right_rotate(ref->right);
-    left_rotate(ref);
+    right = right->right_rotate();
+    return left_rotate();
 }
 
 /**

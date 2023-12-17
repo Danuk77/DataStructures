@@ -32,9 +32,7 @@ void avl_tree<T>::insert(T item)
     }
     else
     {
-        root->insert(item);
-        // Balance the tree
-        // root->balance(root, balancing_threshold);
+        root = root->insert(item, root, balancing_threshold);
     }
 }
 
@@ -98,17 +96,3 @@ void avl_tree<T>::traverse(int method)
 
     cout << endl;
 }
-
-// struct avl_tree
-// {
-//     avl_tree<T> *root;
-//     // Balancing threshold used for determining how much unevenness in depth between left and right subtree is allowed
-//     int balancing_threshold = 1;
-
-//     ~avl_tree();
-//     avl_tree();
-//     bool insert(T item);
-//     bool remove(T item);
-//     bool find(T item);
-//     void traverse(int method);
-// };
